@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiation Python SDK - Interactive Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 100px 0;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '🐍';
+            position: absolute;
+            font-size: 15rem;
+            opacity: 0.1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            50% { transform: translate(-50%, -50%) rotate(10deg); }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .demo-section {
+            padding: 80px 0;
+            background: #1a252f;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .demo-card {
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .demo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .demo-card h3 {
+            color: #3498db;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow-x: auto;
+            border-left: 4px solid #3498db;
+        }
+
+        .code-block code {
+            color: #ffffff;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .interactive-demo {
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px 0;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .demo-input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .demo-input::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .demo-button {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(52,152,219,0.3);
+        }
+
+        .demo-output {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            min-height: 100px;
+            border: 1px solid rgba(52,152,219,0.3);
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .features {
+            padding: 80px 0;
+            background: #34495e;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            text-align: center;
+        }
+
+        .cta-button {
+            background: #ffffff;
+            color: #3498db;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #3498db;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .python-highlight {
+            color: #f39c12;
+        }
+
+        .async-highlight {
+            color: #e74c3c;
+        }
+
+        @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .badges {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="container">
+            <h1>🐍 Tiation Python SDK</h1>
+            <p>Enterprise-grade Python SDK with async support and type safety</p>
+            
+            <div class="badges">
+                <span class="badge">Python 3.8+</span>
+                <span class="badge">Async/Await</span>
+                <span class="badge">Type Hints</span>
+                <span class="badge">Enterprise Ready</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 20px; color: #3498db;">Interactive Python Demo</h2>
+            <p style="text-align: center; margin-bottom: 40px; opacity: 0.8;">Experience the power of Tiation Python SDK with live code examples</p>
+
+            <div class="interactive-demo">
+                <h3>🚀 Python SDK Simulator</h3>
+                <p>Test Python SDK functionality in real-time:</p>
+                
+                <input type="text" class="demo-input" id="apiKey" placeholder="Enter your API key (or use demo mode)">
+                <button class="demo-button" onclick="testSync()">Sync API Call</button>
+                <button class="demo-button" onclick="testAsync()">Async API Call</button>
+                <button class="demo-button" onclick="testBatch()">Batch Operations</button>
+                <button class="demo-button" onclick="runPythonDemo()">Full Demo</button>
+                
+                <div class="demo-output" id="output">
+                    <p style="color: #3498db;">Python SDK Demo Ready...</p>
+                </div>
+            </div>
+
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>🔄 Async/Await Support</h3>
+                    <p>Full asyncio support for high-performance applications</p>
+                    <div class="code-block">
+                        <code>
+<span class="python-highlight">import</span> asyncio
+<span class="python-highlight">from</span> tiation <span class="python-highlight">import</span> AsyncTiationClient
+
+<span class="async-highlight">async</span> <span class="python-highlight">def</span> main():
+    client = AsyncTiationClient(api_key="your_key")
+    
+    # Async API calls
+    metrics = <span class="async-highlight">await</span> client.analytics.get_metrics()
+    workflows = <span class="async-highlight">await</span> client.automation.list_workflows()
+    
+    print(f"Revenue: ${metrics.revenue}")
+
+asyncio.run(main())
+                        </code>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <h3>🛡️ Type Safety</h3>
+                    <p>Complete type hints for better development experience</p>
+                    <div class="code-block">
+                        <code>
+<span class="python-highlight">from</span> tiation <span class="python-highlight">import</span> TiationClient, Analytics
+<span class="python-highlight">from</span> typing <span class="python-highlight">import</span> Optional
+
+client = TiationClient(api_key="your_key")
+
+# Type-safe API calls
+analytics: Analytics = client.analytics.get_metrics()
+revenue: float = analytics.revenue
+users: int = analytics.users
+
+print(f"Revenue: ${revenue:,.2f}")
+print(f"Users: {users:,}")
+                        </code>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <h3>🔄 Batch Operations</h3>
+                    <p>Efficient batch processing for enterprise workloads</p>
+                    <div class="code-block">
+                        <code>
+# Batch create content
+contents = [
+    {"title": "Post 1", "body": "Content 1"},
+    {"title": "Post 2", "body": "Content 2"}
+]
+
+results = client.cms.batch_create(contents)
+
+# Batch analytics
+metrics = client.analytics.batch_metrics([
+    {"metric": "revenue", "period": "monthly"},
+    {"metric": "users", "period": "daily"}
+])
+
+<span class="python-highlight">for</span> result <span class="python-highlight">in</span> results:
+    print(f"Created: {result.id}")
+                        </code>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <h3>🔧 Error Handling</h3>
+                    <p>Comprehensive error handling with custom exceptions</p>
+                    <div class="code-block">
+                        <code>
+<span class="python-highlight">from</span> tiation <span class="python-highlight">import</span> TiationError, RateLimitError
+
+<span class="python-highlight">try</span>:
+    analytics = client.analytics.get_metrics()
+<span class="python-highlight">except</span> RateLimitError <span class="python-highlight">as</span> e:
+    print(f"Rate limit: {e.retry_after}s")
+<span class="python-highlight">except</span> TiationError <span class="python-highlight">as</span> e:
+    print(f"API error: {e.message}")
+<span class="python-highlight">else</span>:
+    print(f"Success: ${analytics.revenue}")
+                        </code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="features">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 40px;">Why Choose Tiation Python SDK?</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>High Performance</h3>
+                    <p>Optimized for speed with async support and connection pooling</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🐍</div>
+                    <h3>Pythonic Design</h3>
+                    <p>Follows Python best practices with intuitive APIs</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Data Science Ready</h3>
+                    <p>Perfect integration with pandas, numpy, and ML libraries</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Async First</h3>
+                    <p>Built-in asyncio support for concurrent operations</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Type Safety</h3>
+                    <p>Complete type hints and mypy compatibility</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🏢</div>
+                    <h3>Enterprise Features</h3>
+                    <p>Batch operations, webhooks, and enterprise authentication</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta-section">
+        <div class="container">
+            <h2 style="margin-bottom: 30px;">Ready to Scale with Python?</h2>
+            <p style="margin-bottom: 40px; font-size: 1.2rem;">Join the Python developer community using Tiation SDK</p>
+            
+            <a href="https://github.com/tiation/tiation-python-sdk" class="cta-button">📚 Documentation</a>
+            <a href="https://pypi.org/project/tiation-sdk/" class="cta-button">📦 Install via PyPI</a>
+            <a href="mailto:tiatheone@protonmail.com" class="cta-button">💬 Get Support</a>
+        </div>
+    </div>
+
+    <script>
+        function updateOutput(content, isError = false) {
+            const output = document.getElementById('output');
+            const color = isError ? '#e74c3c' : '#3498db';
+            output.innerHTML = `<p style="color: ${color};">${content}</p>`;
+        }
+
+        function showLoading() {
+            updateOutput('<span class="loading"></span> Processing Python code...');
+        }
+
+        function testSync() {
+            showLoading();
+            
+            setTimeout(() => {
+                updateOutput(`<span style="color: #f39c12;">from</span> tiation <span style="color: #f39c12;">import</span> TiationClient<br><br>
+                    client = TiationClient(api_key="demo_key")<br>
+                    analytics = client.analytics.get_metrics()<br><br>
+                    <span style="color: #2ecc71;">✅ Sync call completed!</span><br>
+                    Revenue: $125,430.50<br>
+                    Users: 1,247`);
+            }, 1500);
+        }
+
+        function testAsync() {
+            showLoading();
+            
+            setTimeout(() => {
+                updateOutput(`<span style="color: #e74c3c;">async</span> <span style="color: #f39c12;">def</span> main():<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;client = AsyncTiationClient(api_key="demo_key")<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;analytics = <span style="color: #e74c3c;">await</span> client.analytics.get_metrics()<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;workflows = <span style="color: #e74c3c;">await</span> client.automation.list_workflows()<br><br>
+                    asyncio.run(main())<br><br>
+                    <span style="color: #2ecc71;">✅ Async operations completed!</span><br>
+                    Concurrent requests: 2<br>
+                    Total time: 0.8s`);
+            }, 2000);
+        }
+
+        function testBatch() {
+            showLoading();
+            
+            setTimeout(() => {
+                updateOutput(`contents = [<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;{"title": "Post 1", "body": "Content 1"},<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;{"title": "Post 2", "body": "Content 2"}<br>
+                    ]<br><br>
+                    results = client.cms.batch_create(contents)<br><br>
+                    <span style="color: #2ecc71;">✅ Batch operation completed!</span><br>
+                    Created: 2 items<br>
+                    Performance: 3x faster than individual calls`);
+            }, 1800);
+        }
+
+        function runPythonDemo() {
+            showLoading();
+            
+            setTimeout(() => {
+                updateOutput(`<span style="color: #2ecc71;">🐍 Python SDK Full Demo</span><br><br>
+                    <span style="color: #f39c12;">import</span> asyncio<br>
+                    <span style="color: #f39c12;">from</span> tiation <span style="color: #f39c12;">import</span> AsyncTiationClient<br><br>
+                    <span style="color: #e74c3c;">async</span> <span style="color: #f39c12;">def</span> demo():<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;client = AsyncTiationClient("demo_key")<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;analytics = <span style="color: #e74c3c;">await</span> client.analytics.get_metrics()<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;workflow = <span style="color: #e74c3c;">await</span> client.automation.create_workflow({<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name": "Python Demo",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"trigger": "api_call"<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;})<br><br>
+                    <span style="color: #2ecc71;">✅ Demo completed successfully!</span><br>
+                    📊 Analytics: Revenue $125,430 | Users 1,247<br>
+                    🔄 Workflow: "Python Demo" (ID: py_wf_123)<br>
+                    ⚡ Performance: Async operations 2.5x faster`);
+            }, 2500);
+        }
+
+        // Auto-run demo on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                updateOutput('🐍 Python SDK interactive demo loaded! Try the buttons above to test different features.');
+            }, 500);
+        });
+    </script>
+</body>
+</html>
