@@ -286,3 +286,33 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
     </a>
   </p>
 </div>
+
+## 🛠️ Tiation SDK Ecosystem
+
+### Multi-Language SDKs
+- 🐍 [**Python SDK**](https://github.com/tiation/tiation-python-sdk) - You are here! Full-featured Python SDK
+- 🔷 [**Go SDK**](https://github.com/tiation/tiation-go-sdk) - High-performance Go SDK  
+- ☕ [**Java SDK**](https://github.com/tiation/tiation-java-sdk) - Enterprise Java SDK
+- 🟨 [**JavaScript SDK**](https://github.com/tiation/tiation-js-sdk) - Browser & Node.js SDK
+
+### Developer Tools
+- 💻 [**Terminal Workflows**](https://github.com/tiation/tiation-terminal-workflows) - Warp terminal automation
+- 🍎 [**macOS Toolkit**](https://github.com/tiation/tiation-macos-toolkit) - macOS development utilities
+- 🔧 [**Automation Workspace**](https://github.com/tiation/tiation-automation-workspace) - Development automation tools
+
+### Documentation & Examples
+- 📖 [**Python SDK Docs**](https://tiation.github.io/tiation-python-sdk/) - Complete Python SDK documentation
+- 📚 [**Go SDK Docs**](https://tiation.github.io/tiation-go-sdk/) - Go SDK reference  
+- 📋 [**Java SDK Docs**](https://tiation.github.io/tiation-java-sdk/) - Java SDK documentation
+- 🌐 [**JS SDK Docs**](https://tiation.github.io/tiation-js-sdk/) - JavaScript SDK guide
+
+### SDK Comparison
+| Feature | Python | Go | Java | JavaScript |
+|---------|--------|----|----- |------------|
+| Performance | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ |
+| Enterprise Features | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ |
+| Ease of Use | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+| Platform Support | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+
+---
+
